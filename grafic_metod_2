@@ -1,0 +1,521 @@
+Sub GraphicalMethod()
+
+    Dim A(), B(), C(), D(), F(), a_x1(), a_x2(), b_x1(), b_x2(), c_x1(), c_x2(), d_x1(), d_x2(), X_1(), X_2(), check(), obl_x1(), obl_x2()
+    Dim k(0 To 3), temp(1 To 5)
+    Dim n, Zxmax, Zxmin, Z, x1max, x2max, x1min, x2min, x1, x2, ff, s, msg As Variant
+    Dim temp2 As New Collection
+    Dim temp1 As New Collection
+    n = Range("Q3").Value
+    
+    For i = 0 To n - 1
+        k(i) = Cells(i + 5, 7)
+    Next i
+    
+    'Çàäàåì îãðàíè÷åíèÿ
+    Select Case n
+        Case Is = 1
+            ' îãðàíè÷åíèå 1
+            ReDim a_x1(-3 To 11)
+            ReDim a_x2(-3 To 11)
+            A = Array(Range("D5").Value, Range("E5").Value)
+            For i = -3 To 11
+                a_x1(i) = i
+                a_x2(i) = (-A(0) * a_x1(i) + k(0)) / A(1)
+                'a_x2(i) = (k(0) - A(0) * a_x1(i)) / A(1)
+            Next i
+            
+        Case Is = 2
+            ' îãðàíè÷åíèå 1
+            ReDim a_x1(-3 To 11)
+            ReDim a_x2(-3 To 11)
+            A = Array(Range("D5").Value, Range("E5").Value)
+            For i = -3 To 11
+                a_x1(i) = i
+                a_x2(i) = (k(0) - A(0) * a_x1(i)) / A(1)
+            Next i
+            
+            ' îãðàíè÷åíèå 2
+            ReDim b_x1(-3 To 11)
+            ReDim b_x2(-3 To 11)
+            B = Array(Range("D6").Value, Range("E6").Value)
+            For i = -3 To 11
+                b_x1(i) = i
+                b_x2(i) = (k(1) - B(0) * b_x1(i)) / B(1)
+            Next i
+            
+        Case Is = 3
+            ' îãðàíè÷åíèå 1
+            ReDim a_x1(-3 To 11)
+            ReDim a_x2(-3 To 11)
+            A = Array(Range("D5").Value, Range("E5").Value)
+            For i = -3 To 11
+                a_x1(i) = i
+                a_x2(i) = (k(0) - A(0) * a_x1(i)) / A(1)
+            Next i
+            
+            ' îãðàíè÷åíèå 2
+            ReDim b_x1(-3 To 11)
+            ReDim b_x2(-3 To 11)
+            B = Array(Range("D6").Value, Range("E6").Value)
+            For i = -3 To 11
+                b_x1(i) = i
+                b_x2(i) = (k(1) - B(0) * b_x1(i)) / B(1)
+            Next i
+            
+            ' îãðàíè÷åíèå 3
+            ReDim c_x1(-3 To 11)
+            ReDim c_x2(-3 To 11)
+            C = Array(Range("D7").Value, Range("E7").Value)
+            For i = -3 To 11
+                c_x1(i) = i
+                c_x2(i) = (k(2) - C(0) * c_x1(i)) / C(1)
+            Next i
+        
+        Case Is = 4
+            ' îãðàíè÷åíèå 1
+            ReDim a_x1(-3 To 11)
+            ReDim a_x2(-3 To 11)
+            A = Array(Range("D5").Value, Range("E5").Value)
+            For i = -3 To 11
+                a_x1(i) = i
+                a_x2(i) = (k(0) - A(0) * a_x1(i)) / A(1)
+            Next i
+            
+            ' îãðàíè÷åíèå 2
+            ReDim b_x1(-3 To 11)
+            ReDim b_x2(-3 To 11)
+            B = Array(Range("D6").Value, Range("E6").Value)
+            For i = -3 To 11
+                b_x1(i) = i
+                b_x2(i) = (k(1) - B(0) * b_x1(i)) / B(1)
+            Next i
+            
+            ' îãðàíè÷åíèå 3
+            ReDim c_x1(-3 To 11)
+            ReDim c_x2(-3 To 11)
+            C = Array(Range("D7").Value, Range("E7").Value)
+            For i = -3 To 11
+                c_x1(i) = i
+                c_x2(i) = (k(2) - C(0) * c_x1(i)) / C(1)
+            Next i
+            
+            ' îãðàíè÷åíèå 4
+            ReDim d_x1(-3 To 11)
+            ReDim d_x2(-3 To 11)
+            D = Array(Range("D8").Value, Range("E8").Value)
+            For i = -3 To 11
+                d_x1(i) = i
+                d_x2(i) = (k(3) - D(0) * d_x1(i)) / D(1)
+            Next i
+    End Select
+       
+    'Ïîèñê ðåøåíèÿ
+    temp(1) = Range("G5").Value: temp(2) = Range("G6").Value: temp(3) = Range("G7").Value
+    If n = 4 Then
+        temp(4) = Range("G8").Value
+    End If
+    
+    Select Case n
+        Case Is = 1
+            ReDim T(1 To 3, 1 To 1)
+            T(1, 1) = Range("D5").Value: T(2, 1) = Range("E5").Value
+        
+        Case Is = 2
+            ReDim T(1 To 3, 1 To 2)
+            T(1, 1) = Range("D5").Value: T(2, 1) = Range("E5").Value
+            T(1, 2) = Range("D6").Value: T(2, 2) = Range("E6").Value
+            
+        Case Is = 3
+            ReDim T(1 To 3, 1 To 3)
+            T(1, 1) = Range("D5").Value: T(2, 1) = Range("E5").Value
+            T(1, 2) = Range("D6").Value: T(2, 2) = Range("E6").Value
+            T(1, 3) = Range("D7").Value: T(2, 3) = Range("E7").Value
+        
+        Case Is = 4
+            ReDim T(1 To 3, 1 To 4)
+            T(1, 1) = Range("D5").Value: T(2, 1) = Range("E5").Value
+            T(1, 2) = Range("D6").Value: T(2, 2) = Range("E6").Value
+            T(1, 3) = Range("D7").Value: T(2, 3) = Range("E7").Value
+            T(1, 4) = Range("D8").Value: T(2, 4) = Range("E8").Value
+    End Select
+    
+    F = Array(Range("D3").Value, Range("E3").Value)
+    
+    'Íàõîæäåíèå max
+    If Range("G3").Value = "max" Then
+        Zxmax = -1000: x1 = 0
+        While x1 < 10
+            x2 = 0
+            While x2 < 10 ' Ïðîâåðêà ïðèíàäëåæíîñòè x1, x2 îáëàñòè îãðàíè÷åíèé
+                flag = True 'x1, x2 ïðèíàäëåæàò îáëàñòè îãðàíè÷åíèé
+                    For j = 1 To n
+                        If (T(1, j) * x1 + T(2, j) * x2) > temp(j) Then
+                            flag = False
+                        End If
+                    Next j
+                If flag Then
+                    temp1.Add (x1)
+                    temp2.Add (x2)
+                    Z = F(0) * x1 + F(1) * x2
+                    If Zxmax < Z Then
+                        Zxmax = Z: x1max = x1: x2max = x2
+                    End If
+                End If
+                x2 = x2 + 0.1
+            Wend
+            x1 = x1 + 0.1
+        Wend
+        If temp1.Count = 0 Then
+            msg = MsgBox("Îáëàñòü äîïóñòèìûõ ðåøåíèé ïóñòàÿ", vbExclamation)
+            Exit Sub
+        End If
+        
+        'MsgBox temp1.Count & temp2.Count
+        ReDim obl_x1(1 To temp1.Count)
+        ReDim obl_x2(1 To temp2.Count)
+        For i = 1 To temp1.Count
+            obl_x1(i) = temp1(i)
+        Next i
+        For i = 1 To temp2.Count
+            obl_x2(i) = temp2(i)
+        Next i
+        
+        'MsgBox obl_x1.Count & obl_x2.Count
+        
+        Select Case n
+            Case Is = 1
+                Range("B7", "I7").Merge
+                Range("B7", "I7").HorizontalAlignment = xlLeft
+                Range("B7", "I7").Interior.Color = RGB(255, 255, 71)
+                Range("B7", "I7").Value = "Îòâåò: Zmax = " & Round(Zxmax) & ", x1max = " & Round(x1max) & ", x2max = " & Round(x2max)
+            
+            Case Is = 2
+                Range("B8", "I8").Merge
+                Range("B8", "I8").HorizontalAlignment = xlLeft
+                Range("B8", "I8").Interior.Color = RGB(255, 255, 71)
+                Range("B8", "I8").Value = "Îòâåò: Zmax = " & Round(Zxmax) & ", x1max = " & Round(x1max) & ", x2max = " & Round(x2max)
+                
+            Case Is = 3
+                Range("B9", "I9").Merge
+                Range("B9", "I9").HorizontalAlignment = xlLeft
+                Range("B9", "I9").Interior.Color = RGB(255, 255, 71)
+                Range("B9", "I9").Value = "Îòâåò: Zmax = " & Round(Zxmax) & ", x1max = " & Round(x1max) & ", x2max = " & Round(x2max)
+                
+            Case Is = 4
+                Range("B10", "I10").Merge
+                Range("B10", "I10").HorizontalAlignment = xlLeft
+                Range("B10", "I10").Interior.Color = RGB(255, 255, 71)
+                Range("B10", "I10").Value = "Îòâåò: Zmax = " & Round(Zxmax) & ", x1max = " & Round(x1max) & ", x2max = " & Round(x2max)
+        End Select
+        
+    'Íàõîæäåíèå min
+    ElseIf Range("G3").Value = "min" Then
+        Zxmin = 1000: x1 = 0
+        While x1 < 10
+            x2 = 0
+            While x2 < 10
+                flag = True
+                    For j = 1 To n
+                        If T(1, j) * x1 + T(2, j) * x2 > temp(j) Then
+                            flag = False
+                        End If
+                    Next j
+                If flag Then
+                    temp1.Add (x1)
+                    temp2.Add (x2)
+                    Z = F(0) * x1 + F(1) * x2
+                    If Zxmin > Z Then
+                        Zxmin = Z: x1min = x1: x2min = x2
+                    End If
+                End If
+                x2 = x2 + 0.1
+            Wend
+            x1 = x1 + 0.1
+        Wend
+        If temp1.Count = 0 Then
+            msg = MsgBox("Îáëàñòü äîïóñòèìûõ ðåøåíèé ïóñòàÿ", vbExclamation)
+            Exit Sub
+        End If
+        ReDim obl_x1(1 To temp1.Count)
+        ReDim obl_x2(1 To temp2.Count)
+        For i = 1 To temp1.Count
+                obl_x1(i) = temp1(i)
+        Next i
+        For i = 1 To temp2.Count
+            obl_x2(i) = temp2(i)
+        Next i
+        
+        'MsgBox temp1.Count & temp2.Count
+        
+        Select Case n
+            Case Is = 1
+                Range("B7", "I7").Merge
+                Range("B7", "I7").HorizontalAlignment = xlLeft
+                Range("B7", "I7").Interior.Color = RGB(255, 255, 71)
+                Range("B7", "I7").Value = "Îòâåò: Zmin = " & Round(Zxmin) & ", x1min = " & Round(x1min) & ", x2min = " & Round(x2min)
+            
+            Case Is = 2
+                Range("B8", "I8").Merge
+                Range("B8", "I8").HorizontalAlignment = xlLeft
+                Range("B8", "I8").Interior.Color = RGB(255, 255, 71)
+                Range("B8", "I8").Value = "Îòâåò: Zmin = " & Round(Zxmin) & ", x1min = " & Round(x1min) & ", x2min = " & Round(x2min)
+                
+            Case Is = 3
+                Range("B9", "I9").Merge
+                Range("B9", "I9").HorizontalAlignment = xlLeft
+                Range("B9", "I9").Interior.Color = RGB(255, 255, 71)
+                Range("B9", "I9").Value = "Îòâåò: Zmin = " & Round(Zxmin) & ", x1min = " & Round(x1min) & ", x2min = " & Round(x2min)
+                
+            Case Is = 4
+                Range("B10", "I10").Merge
+                Range("B10", "I10").HorizontalAlignment = xlLeft
+                Range("B10", "I10").Interior.Color = RGB(255, 255, 71)
+                Range("B10", "I10").Value = "Îòâåò: Zmin = " & Round(Zxmin) & ", x1min = " & Round(x1min) & ", x2min = " & Round(x2min)
+        End Select
+        
+        ReDim X_1(0 To 100)
+        ReDim X_2(0 To 100)
+        x1 = -3
+        ff = F(0) * x1min + F(1) * x2min
+        For i = 0 To 100
+            X_2(i) = (ff - F(0) * x1) / F(1)
+            X_1(i) = x1 + 0.01
+        Next i
+    End If
+    
+    'Ñòðîèì ãðàôèê
+    Dim Chart As Chart
+    Set Chart = Worksheets("Ãðàôè÷åñêèé ìåòîä").Shapes.AddChart2(-1, xlXYScatterSmoothNoMarkers).Chart
+    Chart.HasTitle = True
+    Chart.HasLegend = True
+    Chart.Legend.Font.Name = "Times New Roman"
+    Chart.Legend.Font.Size = 12
+    Chart.Legend.Font.Bold = True
+    Chart.Legend.Font.Color = RGB(0, 0, 0)
+    Chart.ChartTitle.Text = "Ðåøåíèå ãðàôè÷åñêèì ìåòîäîì"
+    Chart.ChartTitle.Font.Name = "Times New Roman"
+    Chart.ChartTitle.Font.Size = 14
+    Chart.ChartTitle.Font.Color = RGB(0, 0, 0)
+    Chart.Parent.Width = 550
+    Chart.Parent.Height = 300
+    Chart.Axes(xlCategory).HasTitle = True
+    Chart.Axes(xlCategory).AxisTitle.Text = "x1"
+    Chart.Axes(xlValue).HasTitle = True
+    Chart.Axes(xlValue).AxisTitle.Text = "x2"
+    Chart.Axes(xlCategory).Format.Line.EndArrowheadStyle = msoArrowheadTriangle
+    Chart.Axes(xlCategory).Format.Line.EndArrowheadWidth = 2
+    Chart.Axes(xlCategory).Format.Line.EndArrowheadLength = msoArrowheadLong
+    Chart.Axes(xlCategory).Format.Line.ForeColor.RGB = RGB(0, 0, 0)
+    Chart.Axes(xlCategory).Format.Line.Weight = 1.5
+    Chart.Axes(xlCategory).MaximumScale = 10
+    Chart.Axes(xlCategory).MinimumScale = -3
+    Chart.Axes(xlValue).Format.Line.EndArrowheadStyle = msoArrowheadTriangle
+    Chart.Axes(xlValue).Format.Line.EndArrowheadWidth = 2
+    Chart.Axes(xlValue).Format.Line.EndArrowheadLength = msoArrowheadLong
+    Chart.Axes(xlValue).Format.Line.ForeColor.RGB = RGB(0, 0, 0)
+    Chart.Axes(xlValue).Format.Line.Weight = 1.5
+    Chart.Axes(xlValue).MaximumScale = 10
+    Chart.Axes(xlValue).MinimumScale = -3
+    Chart.Axes(xlValue).MajorUnit = 1
+    Chart.Axes(xlCategory).MajorUnit = 1
+    
+    If (Abs(F(0)) > 3 And Abs(F(0)) < 10) Or (Abs(F(1)) > 3 And Abs(F(1)) < 10) Then
+        F(0) = Round(F(0) / 2)
+        F(1) = Round(F(1) / 2)
+    ElseIf Abs(F(0)) > 10 Or Abs(F(1)) > 10 Then
+        F(0) = Round(F(0) / 10)
+        F(1) = Round(F(1) / 10)
+        If Abs(F(0)) > 3 Or Abs(F(1)) > 3 Then
+            F(0) = Round(F(0) / 2)
+            F(1) = Round(F(1) / 2)
+        End If
+    End If
+    
+    
+    'Ñòðîèì îãðàíè÷åíèÿ
+    'Îáëàñòü äîïóñòèìûõ ðåøåíèé
+    Chart.SeriesCollection.NewSeries
+    Chart.SeriesCollection(1).Name = "Îáëàñòü äîïóñòèìûõ ðåøåíèé"
+    Chart.SeriesCollection(1).Format.Line.ForeColor.RGB = RGB(0, 234, 11)
+    Chart.SeriesCollection(1).XValues = obl_x1
+    Chart.SeriesCollection(1).Values = obl_x2
+    
+    'Íîðìàëü
+    Chart.SeriesCollection.NewSeries
+    Chart.SeriesCollection(2).Name = "Íîðìàëü"
+    Chart.SeriesCollection(2).XValues = Array(0, F(0))
+    Chart.SeriesCollection(2).Values = Array(0, F(1))
+    Chart.SeriesCollection(2).Format.Line.EndArrowheadStyle = msoArrowheadTriangle
+    
+    Select Case n
+        Case Is = 1
+            'Îãðàíè÷åíèå 1
+            Chart.SeriesCollection.NewSeries
+            Chart.SeriesCollection(3).Name = "Îãðàíè÷åíèå 1"
+            Chart.SeriesCollection(3).Format.Line.ForeColor.RGB = RGB(51, 51, 255)
+            Chart.SeriesCollection(3).XValues = a_x1
+            Chart.SeriesCollection(3).Values = a_x2
+            
+            'Îïîðíàÿ ïðÿìàÿ
+            Chart.SeriesCollection.NewSeries
+            Chart.SeriesCollection(4).Name = "Îïîðíàÿ ïðÿìàÿ"
+            Chart.SeriesCollection(4).Format.Line.Weight = 3
+            Chart.SeriesCollection(4).Format.Line.ForeColor.RGB = RGB(71, 255, 71)
+            F = Array(Range("D3").Value, Range("E3").Value)
+            If Range("G3").Value = "max" Then
+                x1 = -3
+                While x1 < 10
+                    x2 = (Zxmax - F(0) * x1) / F(1)
+                    Chart.SeriesCollection(4).XValues = Array(x1max - 10, x1 + 1000)
+                    Chart.SeriesCollection(4).Values = Array(x2max + 12, x2 - 1200)
+                    x1 = x1 + 0.01
+                Wend
+            ElseIf Range("G3").Value = "min" Then
+                x1 = -3
+                While x1 < 10
+                    x2 = (Zxmin - F(0) * x1) / F(1)
+                    Chart.SeriesCollection(4).XValues = Array(x1min - 10, x1 + 1000)
+                    Chart.SeriesCollection(4).Values = Array(x2min + 10, x2 - 1000)
+                    x1 = x1 + 0.01
+                Wend
+            End If
+            
+        Case Is = 2
+            'Îãðàíè÷åíèå 1
+            Chart.SeriesCollection.NewSeries
+            Chart.SeriesCollection(3).Name = "Îãðàíè÷åíèå 1"
+            Chart.SeriesCollection(3).Format.Line.ForeColor.RGB = RGB(51, 51, 255)
+            Chart.SeriesCollection(3).XValues = a_x1
+            Chart.SeriesCollection(3).Values = a_x2
+            
+            'Îãðàíè÷åíèå 2
+            Chart.SeriesCollection.NewSeries
+            Chart.SeriesCollection(4).Name = "Îãðàíè÷åíèå 2"
+            Chart.SeriesCollection(4).Format.Line.ForeColor.RGB = RGB(255, 41, 245)
+            Chart.SeriesCollection(4).XValues = b_x1
+            Chart.SeriesCollection(4).Values = b_x2
+            
+            'Îïîðíàÿ ïðÿìàÿ
+            Chart.SeriesCollection.NewSeries
+            Chart.SeriesCollection(5).Name = "Îïîðíàÿ ïðÿìàÿ"
+            Chart.SeriesCollection(5).Format.Line.Weight = 3
+            Chart.SeriesCollection(5).Format.Line.ForeColor.RGB = RGB(71, 255, 71)
+            F = Array(Range("D3").Value, Range("E3").Value)
+            If Range("G3").Value = "max" Then
+                x1 = -3
+                While x1 < 10
+                    x2 = (Zxmax - F(0) * x1) / F(1)
+                    Chart.SeriesCollection(5).XValues = Array(x1max - 10, x1 + 1000)
+                    Chart.SeriesCollection(5).Values = Array(x2max + 12, x2 - 1200)
+                    x1 = x1 + 0.01
+                Wend
+            ElseIf Range("G3").Value = "min" Then
+                x1 = -3
+                While x1 < 10
+                    x2 = (Zxmin - F(0) * x1) / F(1)
+                    Chart.SeriesCollection(5).XValues = Array(x1min - 10, x1 + 1000)
+                    Chart.SeriesCollection(5).Values = Array(x2min + 10, x2 - 1000)
+                    x1 = x1 + 0.01
+                Wend
+            End If
+        
+        Case Is = 3
+            'Îãðàíè÷åíèå 1
+            Chart.SeriesCollection.NewSeries
+            Chart.SeriesCollection(3).Name = "Îãðàíè÷åíèå 1"
+            Chart.SeriesCollection(3).Format.Line.ForeColor.RGB = RGB(51, 51, 255)
+            Chart.SeriesCollection(3).XValues = a_x1
+            Chart.SeriesCollection(3).Values = a_x2
+            
+            'Îãðàíè÷åíèå 2
+            Chart.SeriesCollection.NewSeries
+            Chart.SeriesCollection(4).Name = "Îãðàíè÷åíèå 2"
+            Chart.SeriesCollection(4).Format.Line.ForeColor.RGB = RGB(255, 41, 245)
+            Chart.SeriesCollection(4).XValues = b_x1
+            Chart.SeriesCollection(4).Values = b_x2
+            
+            'Îãðàíè÷åíèå 3
+            Chart.SeriesCollection.NewSeries
+            Chart.SeriesCollection(5).Name = "Îãðàíè÷åíèå 3"
+            Chart.SeriesCollection(5).Format.Line.ForeColor.RGB = RGB(255, 0, 0)
+            Chart.SeriesCollection(5).XValues = c_x1
+            Chart.SeriesCollection(5).Values = c_x2
+            
+            'Îïîðíàÿ ïðÿìàÿ
+            Chart.SeriesCollection.NewSeries
+            Chart.SeriesCollection(6).Name = "Îïîðíàÿ ïðÿìàÿ"
+            Chart.SeriesCollection(6).Format.Line.Weight = 3
+            Chart.SeriesCollection(6).Format.Line.ForeColor.RGB = RGB(71, 255, 71)
+            F = Array(Range("D3").Value, Range("E3").Value)
+            If Range("G3").Value = "max" Then
+                x1 = -3
+                While x1 < 10
+                    x2 = (Zxmax - F(0) * x1) / F(1)
+                    Chart.SeriesCollection(6).XValues = Array(x1max - 10, x1 + 1000)
+                    Chart.SeriesCollection(6).Values = Array(x2max + 12, x2 - 1200)
+                    x1 = x1 + 0.01
+                Wend
+            ElseIf Range("G3").Value = "min" Then
+                x1 = -3
+                While x1 < 10
+                    x2 = (Zxmin - F(0) * x1) / F(1)
+                    Chart.SeriesCollection(6).XValues = Array(x1min - 10, x1 + 1000)
+                    Chart.SeriesCollection(6).Values = Array(x2min + 10, x2 - 1000)
+                    x1 = x1 + 0.01
+                Wend
+            End If
+            
+        Case Is = 4
+            'Îãðàíè÷åíèå 1
+            Chart.SeriesCollection.NewSeries
+            Chart.SeriesCollection(3).Name = "Îãðàíè÷åíèå 1"
+            Chart.SeriesCollection(3).Format.Line.ForeColor.RGB = RGB(51, 51, 255)
+            Chart.SeriesCollection(3).XValues = a_x1
+            Chart.SeriesCollection(3).Values = a_x2
+            
+            'Îãðàíè÷åíèå 2
+            Chart.SeriesCollection.NewSeries
+            Chart.SeriesCollection(4).Name = "Îãðàíè÷åíèå 2"
+            Chart.SeriesCollection(4).Format.Line.ForeColor.RGB = RGB(255, 41, 245)
+            Chart.SeriesCollection(4).XValues = b_x1
+            Chart.SeriesCollection(4).Values = b_x2
+            
+            'Îãðàíè÷åíèå 3
+            Chart.SeriesCollection.NewSeries
+            Chart.SeriesCollection(5).Name = "Îãðàíè÷åíèå 3"
+            Chart.SeriesCollection(5).Format.Line.ForeColor.RGB = RGB(255, 0, 0)
+            Chart.SeriesCollection(5).XValues = c_x1
+            Chart.SeriesCollection(5).Values = c_x2
+            
+            'Îãðàíè÷åíèå 4
+            Chart.SeriesCollection.NewSeries
+            Chart.SeriesCollection(6).Name = "Îãðàíè÷åíèå 4"
+            Chart.SeriesCollection(6).Format.Line.ForeColor.RGB = RGB(255, 41, 245)
+            Chart.SeriesCollection(6).XValues = d_x1
+            Chart.SeriesCollection(6).Values = d_x2
+            
+            'Îïîðíàÿ ïðÿìàÿ
+            Chart.SeriesCollection.NewSeries
+            Chart.SeriesCollection(7).Name = "Îïîðíàÿ ïðÿìàÿ"
+            Chart.SeriesCollection(7).Format.Line.Weight = 3
+            Chart.SeriesCollection(7).Format.Line.ForeColor.RGB = RGB(71, 255, 71)
+            F = Array(Range("D3").Value, Range("E3").Value)
+            If Range("G3").Value = "max" Then
+                x1 = -3
+                While x1 < 10
+                    x2 = (Zxmax - F(0) * x1) / F(1)
+                    Chart.SeriesCollection(7).XValues = Array(x1max - 10, x1 + 1000)
+                    Chart.SeriesCollection(7).Values = Array(x2max + 12, x2 - 1200)
+                    x1 = x1 + 0.01
+                Wend
+            ElseIf Range("G3").Value = "min" Then
+                x1 = -3
+                While x1 < 10
+                    x2 = (Zxmin - F(0) * x1) / F(1)
+                    Chart.SeriesCollection(7).XValues = Array(x1min - 10, x1 + 1000)
+                    Chart.SeriesCollection(7).Values = Array(x2min + 10, x2 - 1000)
+                    x1 = x1 + 0.01
+                Wend
+            End If
+    End Select
+End Sub
